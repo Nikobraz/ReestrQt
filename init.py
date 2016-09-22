@@ -16,40 +16,40 @@ def timer(f):
     return tmp
 
 
-def get_filelist(mesyaz, den, god, usluga):
+def get_filelist(month, day, year, service):
     coding = sys.stdin.encoding
     if __name__ == "__main__":
-        if mesyaz == '':
-            mesyaz = '05'
-        if den == '':
-            den = '05'
-        if god == '':
-            god = '2014'
-        usluga = raw_input('Введите услугу(1 Альт, 2 Мастер, 3 Дез):'.decode('UTF-8').encode(coding))
-    if len(den) == 1:
-        den = '0' + den
-    if len(mesyaz) == 1:
-        mesyaz = '0' + mesyaz
-    dpap = god + '_' + mesyaz + '_' + den
-    if usluga == '1':
-        papka = u'D:/work/_Chelinvestbank/_Из' ur'\u0020' u'банка/Архив' '/' + dpap + '/' u'альт'
-    elif usluga == '2':
-        papka = u'D:/work/_Chelinvestbank/_Из' ur'\u0020' u'банка/Архив' '/' + dpap + '/' u'мастер'
-    elif usluga == '3':
-        papka = u'D:/work/_Chelinvestbank/_Из' ur'\u0020' u'банка/Архив' '/' + dpap + '/' u'дез'
-    elif usluga == '0':
-        papka = u'D:/work/_Chelinvestbank/_Из' ur'\u0020' u'банка/Архив' '/' + dpap
+        if month == '':
+            month = '05'
+        if day == '':
+            day = '05'
+        if year == '':
+            year = '2014'
+        service = raw_input('Введите услугу(1 Альт, 2 Мастер, 3 Дез):'.decode('UTF-8').encode(coding))
+    if len(day) == 1:
+        day = '0' + day
+    if len(month) == 1:
+        month = '0' + month
+    dpap = day + '_' + month + '_' + day
+    if service == '1':
+        directory = u'D:/work/_Chelinvestbank/_Из' ur'\u0020' u'банка/Архив' '/' + dpap + '/' u'альт'
+    elif service == '2':
+        directory = u'D:/work/_Chelinvestbank/_Из' ur'\u0020' u'банка/Архив' '/' + dpap + '/' u'мастер'
+    elif service == '3':
+        directory = u'D:/work/_Chelinvestbank/_Из' ur'\u0020' u'банка/Архив' '/' + dpap + '/' u'дез'
+    elif service == '0':
+        directory = u'D:/work/_Chelinvestbank/_Из' ur'\u0020' u'банка/Архив' '/' + dpap
     else:
-        papka = u'D:/work/_Chelinvestbank/_Из' ur'\u0020' u'банка/Архив' '/' + dpap
-    files = os.listdir(papka)
+        directory = u'D:/work/_Chelinvestbank/_Из' ur'\u0020' u'банка/Архив' '/' + dpap
+    files = os.listdir(directory)
     files = filter(lambda x: x.endswith('.txt'), files)
-    files = [papka + '/' + fil for fil in files]
+    files = [directory + '/' + fil for fil in files]
     return files
 
 
 
 def search_csv(files, search_str):
-    spisok = []
+    listf = []
     search_str = unicode(search_str, 'utf-8')
     for fil in files:
 #        print fil
@@ -58,18 +58,17 @@ def search_csv(files, search_str):
             row = ", ".join(row)
             row = unicode(row, 'cp866')
             if search_str.upper() in row:
-                 spisok.append(row)
-    return spisok
+                 listf.append(row)
+    return listf
 
 def main():
     coding = sys.stdin.encoding
-    den = raw_input('Введите нужный день:'.decode('UTF-8').encode(coding))
-    mesyaz = raw_input('Введите нужный месяц:'.decode('UTF-8').encode(coding))
-    god = raw_input('Введите нужный год:'.decode('UTF-8').encode(coding))
+    day = raw_input('Введите нужный день:'.decode('UTF-8').encode(coding))
+    month = raw_input('Введите нужный месяц:'.decode('UTF-8').encode(coding))
+    year = raw_input('Введите нужный год:'.decode('UTF-8').encode(coding))
     search_str = raw_input('Введите искомую строку:'.decode('UTF-8').encode(coding))
-    search_csv(get_filelist(mesyaz, den, god, ''), search_str)
-    a = raw_input('')
-    print a
+    search_csv(get_filelist(month, day, year, ''), search_str)
+    
 
 if __name__ == "__main__":
     while True:
